@@ -5,10 +5,10 @@ import java.util.List;
 
 public class BankService {
 
-    private AccountRepository repository;
+    private AccountRepository<Account> repository;
 
-    public BankService(AccountRepository repository) {
-        this.repository = repository; // DIP
+    public BankService(AccountRepository<Account> repository) {
+        this.repository = repository;
     }
 
     public void createAccount(String number, String name, double balance) {
@@ -43,12 +43,14 @@ public class BankService {
 
     // SORTING
     public void sortByBalance() {
-        repository.getAll()
-                .sort(Comparator.comparingDouble(Account::getBalance));
+        repository.getAll().sort(Comparator.comparingDouble(Account::getBalance));
     }
 
     public List<Account> getAllAccounts() {
         return repository.getAll();
     }
-}
 
+    public boolean deleteAccount(String number) {
+        return repository.delete(number);
+    }
+}

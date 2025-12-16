@@ -7,8 +7,7 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
-        AccountRepository<Account> repository =
-                new AccountRepository<>();
+        AccountRepository<Account> repository =new AccountRepository<>();
 
         BankService bank = new BankService(repository);
 
@@ -43,10 +42,7 @@ public class Main {
                 }
 
                 case 2 -> bank.getAllAccounts().forEach(
-                        a -> System.out.println(
-                                a.getAccountNumber() + " | " +
-                                a.getOwnerName() + " | " +
-                                a.getBalance()
+                        a -> System.out.println(a.getAccountNumber() + " | " +a.getOwnerName() + " | " +a.getBalance()
                         )
                 );
 
@@ -74,9 +70,7 @@ public class Main {
                     System.out.print("Account No: ");
                     String no = sc.nextLine();
                     System.out.print("Amount: ");
-                    System.out.println(
-                            bank.withdraw(no, sc.nextDouble())
-                                    ? "Success" : "Failed"
+                    System.out.println(bank.withdraw(no, sc.nextDouble())? "Success" : "Failed"
                     );
                 }
 
@@ -86,25 +80,16 @@ public class Main {
                     System.out.print("To: ");
                     String to = sc.nextLine();
                     System.out.print("Amount: ");
-                    System.out.println(
-                            bank.transfer(from, to, sc.nextDouble())
-                                    ? "Transferred" : "Failed"
+                    System.out.println(bank.transfer(from, to, sc.nextDouble())? "Transferred" : "Failed"
                     );
                 }
 
                 case 8 -> {
                     System.out.print("Account No: ");
-                    var acc = bank.getAllAccounts().stream()
-                            .filter(a -> a.getAccountNumber()
-                                    .equals(sc.nextLine()))
-                            .findFirst();
+                    var acc = bank.getAllAccounts().stream().filter(a -> a.getAccountNumber().equals(sc.nextLine())).findFirst();
 
                     acc.ifPresentOrElse(
-                            a -> System.out.println(
-                                    a.getOwnerName() + " | " +
-                                    a.getBalance()
-                            ),
-                            () -> System.out.println("Not found")
+                            a -> System.out.println(a.getOwnerName() + " | " +a.getBalance()),() -> System.out.println("Not found")
                     );
                 }
 
