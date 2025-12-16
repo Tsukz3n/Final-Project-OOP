@@ -6,7 +6,11 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        BankService bank = new BankService(new AccountRepository());
+
+        AccountRepository<Account> repository =
+                new AccountRepository<>();
+
+        BankService bank = new BankService(repository);
 
         while (true) {
             System.out.println("\n=== BANK MENU ===");
@@ -34,20 +38,29 @@ public class Main {
                     String name = sc.nextLine();
                     System.out.print("Balance: ");
                     double bal = sc.nextDouble();
+
                     bank.createAccount(no, name, bal);
                 }
 
-                case 2 -> bank.getAllAccounts().forEach(a ->System.out.println(a.getAccountNumber()+ " | " + a.getOwnerName()+ " | " + a.getBalance()));
+                case 2 -> bank.getAllAccounts().forEach(
+                        a -> System.out.println(
+                                a.getAccountNumber() + " | " +
+                                a.getOwnerName() + " | " +
+                                a.getBalance()
+                        )
+                );
 
                 case 3 -> {
                     System.out.print("Account No: ");
-                    bank.updateOwnerName(sc.nextLine(),
-                            sc.nextLine());
+                    String no = sc.nextLine();
+                    System.out.print("New Name: ");
+                    String name = sc.nextLine();
+                    bank.updateOwnerName(no, name);
                 }
 
                 case 4 -> {
                     System.out.print("Account No: ");
-                    bank.getAllAccounts().removeIf(a ->a.getAccountNumber().equals(sc.nextLine()));
+                    bank.deleteAccount(sc.nextLine());
                 }
 
                 case 5 -> {
@@ -61,7 +74,10 @@ public class Main {
                     System.out.print("Account No: ");
                     String no = sc.nextLine();
                     System.out.print("Amount: ");
-                    System.out.println(bank.withdraw(no, sc.nextDouble())? "Success" : "Failed");
+                    System.out.println(
+                            bank.withdraw(no, sc.nextDouble())
+                                    ? "Success" : "Failed"
+                    );
                 }
 
                 case 7 -> {
@@ -72,12 +88,39 @@ public class Main {
                     System.out.print("Amount: ");
                     System.out.println(
                             bank.transfer(from, to, sc.nextDouble())
-                                    ? "Transferred" : "Failed");
+                                    ? "Transferred" : "Failed"
+                    );
                 }
 
                 case 8 -> {
                     System.out.print("Account No: ");
-                    var acc = bank.getAllAccounts().stream().filter(a -> a.getAccountNumber().equals(sc.nextLine())).findFirst();
+                    var acc = bank.getAllAccounts().stream()
+                            .filter(a -> a.getAccountNumber()
+                                    .equals(sc.nextLine()))
+                            .findFirst();
+
+                    acc.ifPresentOrElse(
+                            a -> System.out.println(
+                                    a.getOwnerName() + " | " +
+                                    a.getBalance()
+                            ),
+                            () -> System.out.println("Not found")
+                    );
+                }
+
+                case 9 -> {
+                    bank.sortByBalance();
+                    System.out.println("Sorted by balance.");
+                }
+
+                case 0 -> {
+                    System.out.println("Goodbye!");
+                    return;
+                }
+            }
+        }
+    }
+}                    var acc = bank.getAllAccounts().stream().filter(a -> a.getAccountNumber().equals(sc.nextLine())).findFirst();
                     acc.ifPresentOrElse(a -> System.out.println(a.getOwnerName()+ " | " + a.getBalance()),() -> System.out.println("Not found"));
                 }
 
