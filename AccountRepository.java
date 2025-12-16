@@ -2,22 +2,23 @@ package Project;
 
 import java.util.*;
 
-public class AccountRepository {
-    private List<Account> accounts = new ArrayList<>();
+public class AccountRepository<T extends Account> {
+
+    private List<T> accounts = new ArrayList<>();
 
     // CREATE
-    public void add(Account account) {
+    public void add(T account) {
         accounts.add(account);
     }
 
     // READ
-    public List<Account> getAll() {
+    public List<T> getAll() {
         return accounts;
     }
 
     // SEARCH
-    public Account findByAccountNumber(String number) {
-        for (Account acc : accounts) {
+    public T findByAccountNumber(String number) {
+        for (T acc : accounts) {
             if (acc.getAccountNumber().equals(number)) {
                 return acc;
             }
@@ -27,8 +28,7 @@ public class AccountRepository {
 
     // DELETE
     public boolean delete(String number) {
-        Account acc = findByAccountNumber(number);
+        T acc = findByAccountNumber(number);
         return acc != null && accounts.remove(acc);
     }
 }
-
