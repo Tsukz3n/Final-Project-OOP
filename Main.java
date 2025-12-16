@@ -120,22 +120,4 @@ public class Main {
             }
         }
     }
-}                    var acc = bank.getAllAccounts().stream().filter(a -> a.getAccountNumber().equals(sc.nextLine())).findFirst();
-                    acc.ifPresentOrElse(a -> System.out.println(a.getOwnerName()+ " | " + a.getBalance()),() -> System.out.println("Not found"));
-                }
-
-                case 9 -> {
-                    bank.sortByBalance();
-                    System.out.println("Sorted by balance.");
-                }
-
-                case 0 -> {
-                    System.out.println("Goodbye!");
-                    return;
-                }
-            }
-        }
-    }
 }
-
-
