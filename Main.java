@@ -7,8 +7,8 @@ public class Main {
         Account acc1 = new SavingsAccount("001", 1000000.0);
         Account acc2 = new SavingsAccount("002", 500000.0);
 
-        Customer user1 = new Customer("Owen", acc1);
-        Customer user2 = new Customer("Alex", acc2);
+        Customer user1 = new Customer("Lee", acc1);
+        Customer user2 = new Customer("Doe", acc2);
 
         ATMService atm = new ATMService();
         Scanner sc = new Scanner(System.in);
@@ -26,6 +26,7 @@ public class Main {
 
             switch (choice) {
                 case 1:
+                	System.out.println("Account under name: " +user1.getName());
                     System.out.println("Balance: " + user1.getAccount().getBalance());
                     break;
 
@@ -41,7 +42,7 @@ public class Main {
 
                 case 4:
                     System.out.print("Amount: ");
-                    atm.transfer(user1.getAccount(), user2.getAccount(), sc.nextDouble());
+                    atm.transfer(user1, user2, sc.nextDouble());
                     break;
 
                 case 5:
