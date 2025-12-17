@@ -41,10 +41,7 @@ public class Main {
                     bank.createAccount(no, name, bal);
                 }
 
-                case 2 -> bank.getAllAccounts().forEach(
-                        a -> System.out.println(a.getAccountNumber() + " | " +a.getOwnerName() + " | " +a.getBalance()
-                        )
-                );
+                case 2 -> bank.getAllAccounts().forEach(a -> System.out.println(a.getAccountNumber() + " | " +a.getOwnerName() + " | " +a.getBalance()));
 
                 case 3 -> {
                     System.out.print("Account No: ");
@@ -95,8 +92,8 @@ public class Main {
 
                 case 9 -> {
                     bank.sortByBalance();
-                    System.out.println("Sorted by balance.");
-                    bank.getAllAccounts();
+                    System.out.println("Sorted by balance Ascending.");
+                    bank.getAllAccounts().forEach(a -> System.out.println(a.getAccountNumber() + " | " +a.getOwnerName() + " | " +a.getBalance()));
                 }
 
                 case 0 -> {
